@@ -29,6 +29,6 @@
         ]
     },
     "simple-git-hooks": {
-        "pre-commit": "nano-staged"
+        "pre-commit": "bun nano-staged"
     }
 }

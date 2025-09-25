@@ -14,10 +14,17 @@
  */
 export function sumOfNumbersTo(destination) {
     console.log(destination)
-    // write your code here
-    return 0
-}
+    if (destination < 1) {
+        throw new Error('Destination must be at least 1')
+    }
 
+    let sum = 0
+    for (let i = 1; i <= destination; i++) {
+        sum += i
+    }
+    return sum
+}
+console.log(sumOfNumbersTo(10))
 /**
  * Challenge - 2
  *
@@ -29,11 +36,20 @@ export function sumOfNumbersTo(destination) {
 export function evenNumbersWithin(destination) {
     console.log(destination)
     // get the number from 0 to destination
-    const sum = 0
-    const count = 0
+
+    if (destination < 1) {
+        throw new Error('Destination must be at least 1')
+    }
+    let sum = 0
     const arrayOfEvenNumbers = []
 
-    // write your code here
+    for (let i = 0; i < destination; i++) {
+        if (i % 2 === 0) {
+            sum += i
+            arrayOfEvenNumbers.push(i)
+        }
+    }
+    const count = arrayOfEvenNumbers.length
 
     return {
         count,
@@ -41,6 +57,7 @@ export function evenNumbersWithin(destination) {
         arrayOfEvenNumbers,
     }
 }
+console.log(evenNumbersWithin(10))
 
 /**
  * Challenge - 3
@@ -58,29 +75,40 @@ export function evenNumbersWithin(destination) {
 export function celsiusToFahrenheit(arrayOfNumbers) {
     console.log(arrayOfNumbers)
     const result = []
-
-    // write your code here
-
+    for (const celsius of arrayOfNumbers) {
+        const fahrenheit = (celsius * 9 / 5) + 32
+        result.push(Math.round(fahrenheit))
+    }
     return result
 }
+console.log(celsiusToFahrenheit([0, 20, 30, 100]))
 
 /**
  * Challenge - 4
  *
  * Calculates the count and sum of odd numbers from 0 to the given destination.
  * Stores each odd number in an array. Returns an object with count, sum, and arrayOfOddNumbers.
- *
  * @param {number} destination the destination number
  * @returns {object} the count, sum, and arrayOfOddNumbers
  */
 export function oddNumbersWithin(destination) {
     console.log(destination)
     // get the number from 0 to destination
-    const sum = 0
-    const count = 0
+    if (destination < 1) {
+        throw new Error('Destination must be at least 1')
+    }
+
+    let sum = 0
     const arrayOfOddNumbers = []
 
-    // write your code here
+    for (let i = 1; i <= destination; i++) {
+        if (i % 2 !== 0) {
+            sum += i
+            arrayOfOddNumbers.push(i)
+        }
+    }
+
+    const count = arrayOfOddNumbers.length
 
     return {
         count,
@@ -88,6 +116,7 @@ export function oddNumbersWithin(destination) {
         arrayOfOddNumbers,
     }
 }
+console.log(oddNumbersWithin(10))
 
 /**
  * Challenge - 5
@@ -101,11 +130,25 @@ export function oddNumbersWithin(destination) {
  */
 export function findMultiples(arrayOfNumbers, factor) {
     console.log(arrayOfNumbers, factor)
-    const sum = 0
-    const count = 0
+
+    if (!Array.isArray(arrayOfNumbers)) {
+        throw new TypeError('First argument must be an array of numbers')
+    }
+    if (typeof factor !== 'number' || factor === 0) {
+        throw new Error('Factor must be a nonzero number')
+    }
+
+    let sum = 0
     const arrayOfMultiples = []
 
-    // write your code here
+    for (const num of arrayOfNumbers) {
+        if (num % factor === 0) {
+            sum += num
+            arrayOfMultiples.push(num)
+        }
+    }
+
+    const count = arrayOfMultiples.length
 
     return {
         count,
@@ -113,6 +156,7 @@ export function findMultiples(arrayOfNumbers, factor) {
         arrayOfMultiples,
     }
 }
+console.log(findMultiples([3, 4, 5, 6, 9, 12], 3))
 
 /**
  * Challenge - 6
@@ -127,12 +171,33 @@ export function findMultiples(arrayOfNumbers, factor) {
  */
 export function calculateFactorials(arrayOfNumbers) {
     console.log(arrayOfNumbers)
+    if (!Array.isArray(arrayOfNumbers)) {
+        throw new TypeError('Input must be an array of numbers')
+    }
+
     const result = []
 
-    // write your code here
+    // helper function for factorial
+    const factorial = (n) => {
+        if (n < 0)
+            throw new Error('Factorial is not defined for negative numbers')
+        if (n === 0 || n === 1)
+            return 1
+
+        let product = 1
+        for (let i = 2; i <= n; i++) {
+            product *= i
+        }
+        return product
+    }
+
+    for (const num of arrayOfNumbers) {
+        result.push(factorial(num))
+    }
 
     return result
 }
+console.log(calculateFactorials([0, 1, 3, 5]))
 
 /**
  * Challenge - 7
@@ -146,11 +211,39 @@ export function calculateFactorials(arrayOfNumbers) {
  */
 export function findPrimeNumbers(arrayOfNumbers) {
     console.log(arrayOfNumbers)
-    const sum = 0
-    const count = 0
-    const arrayOfPrimes = []
 
     // write your code here
+    if (!Array.isArray(arrayOfNumbers)) {
+        throw new TypeError('Input must be an array of numbers')
+    }
+
+    const arrayOfPrimes = []
+
+    // helper function to check primality
+    const isPrime = (n) => {
+        if (n <= 1)
+            return false // 0 and 1 are not prime
+        if (n === 2)
+            return true // 2 is prime
+        if (n % 2 === 0)
+            return false // even numbers > 2 are not prime
+
+        // check odd divisors up to sqrt(n)
+        for (let i = 3; i * i <= n; i += 2) {
+            if (n % i === 0)
+                return false
+        }
+        return true
+    }
+
+    for (const num of arrayOfNumbers) {
+        if (isPrime(num)) {
+            arrayOfPrimes.push(num)
+        }
+    }
+
+    const count = arrayOfPrimes.length
+    const sum = arrayOfPrimes.reduce((acc, val) => acc + val, 0)
 
     return {
         count,
@@ -158,6 +251,7 @@ export function findPrimeNumbers(arrayOfNumbers) {
         arrayOfPrimes,
     }
 }
+console.log(findPrimeNumbers([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
 
 /**
  * Challenge - 8
@@ -169,12 +263,20 @@ export function findPrimeNumbers(arrayOfNumbers) {
  */
 export function doubleTheValues(arrayOfNumbers) {
     console.log(arrayOfNumbers)
+
+    if (!Array.isArray(arrayOfNumbers)) {
+        throw new TypeError('Input must be an array of numbers')
+    }
+
     const result = []
 
-    // write your code here
+    for (const num of arrayOfNumbers) {
+        result.push(num * 2)
+    }
 
     return result
 }
+console.log(doubleTheValues([1, 2, 3, 4]))
 
 // ========================
 // DO NOT REMOVE THE EXPORT KEYWORDS
