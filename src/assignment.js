@@ -34,30 +34,40 @@ console.log(sumOfNumbersTo(10))
  * @returns the object containing count, sum, arrayOfEvenNumbers from 1 to destination
  */
 export function evenNumbersWithin(destination) {
-    console.log(destination)
-    // get the number from 0 to destination
-
+    if (typeof destination !== 'number' || Number.isNaN(destination)) {
+        throw new TypeError('Destination must be a valid number')
+    }
     if (destination < 1) {
         throw new Error('Destination must be at least 1')
     }
+
     let sum = 0
     const arrayOfEvenNumbers = []
 
-    for (let i = 0; i < destination; i++) {
+    for (let i = 0; i <= destination; i++) { // include destination if it's even
         if (i % 2 === 0) {
             sum += i
             arrayOfEvenNumbers.push(i)
         }
     }
-    const count = arrayOfEvenNumbers.length
 
     return {
-        count,
+        count: arrayOfEvenNumbers.length,
         sum,
         arrayOfEvenNumbers,
     }
 }
+
+// Example usage
 console.log(evenNumbersWithin(10))
+/*
+Output:
+{
+  count: 6,
+  sum: 30,
+  arrayOfEvenNumbers: [0, 2, 4, 6, 8, 10]
+}
+*/
 
 /**
  * Challenge - 3
@@ -181,6 +191,9 @@ export function calculateFactorials(arrayOfNumbers) {
 
     // helper function for factorial
     const factorial = (n) => {
+        if (typeof n !== 'number' || Number.isNaN(n)) {
+            throw new TypeError('All elements must be valid numbers')
+        }
         if (n < 0)
             throw new Error('Factorial is not defined for negative numbers')
         if (n === 0 || n === 1)
@@ -196,7 +209,9 @@ export function calculateFactorials(arrayOfNumbers) {
     return arrayOfNumbers.map(num => factorial(num))
 }
 
-console.log(calculateFactorials([0, 1, 3, 5])) // [1, 1, 6, 120]
+// Example usage
+console.log(calculateFactorials([0, 1, 3, 5]))
+// Output: [1, 1, 6, 120]
 
 /**
  * Challenge - 7
