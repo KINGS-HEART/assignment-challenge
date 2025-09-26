@@ -73,14 +73,16 @@ console.log(evenNumbersWithin(10))
  * @returns Array the converted temperatures in Fahrenheit
  */
 export function celsiusToFahrenheit(arrayOfNumbers) {
-    console.log(arrayOfNumbers)
-    const result = []
-    for (const celsius of arrayOfNumbers) {
-        const fahrenheit = (celsius * 9 / 5) + 32
-        result.push(Math.round(fahrenheit))
+    if (!Array.isArray(arrayOfNumbers)) {
+        throw new TypeError('Input must be an array of numbers')
     }
-    return result
+
+    return arrayOfNumbers.map((celsius) => {
+        const fahrenheit = (celsius * 9) / 5 + 32
+        return Math.round(fahrenheit)
+    })
 }
+
 console.log(celsiusToFahrenheit([0, 20, 30, 100]))
 
 /**
@@ -170,12 +172,9 @@ console.log(findMultiples([3, 4, 5, 6, 9, 12], 3))
  * @returns {Array} the array of factorial results
  */
 export function calculateFactorials(arrayOfNumbers) {
-    console.log(arrayOfNumbers)
     if (!Array.isArray(arrayOfNumbers)) {
         throw new TypeError('Input must be an array of numbers')
     }
-
-    const result = []
 
     // helper function for factorial
     const factorial = (n) => {
@@ -191,13 +190,10 @@ export function calculateFactorials(arrayOfNumbers) {
         return product
     }
 
-    for (const num of arrayOfNumbers) {
-        result.push(factorial(num))
-    }
-
-    return result
+    return arrayOfNumbers.map(num => factorial(num))
 }
-console.log(calculateFactorials([0, 1, 3, 5]))
+
+console.log(calculateFactorials([0, 1, 3, 5])) // [1, 1, 6, 120]
 
 /**
  * Challenge - 7
