@@ -79,11 +79,14 @@ export function celsiusToFahrenheit(arrayOfNumbers) {
 
     return arrayOfNumbers.map((celsius) => {
         const fahrenheit = (celsius * 9) / 5 + 32
-        return Math.round(fahrenheit)
+        return Math.trunc(fahrenheit) // remove decimals
     })
 }
 
+// Example usage
 console.log(celsiusToFahrenheit([0, 20, 30, 100]))
+// Output: [32, 68, 86, 212]
+// Math.trunc() removes the decimal part without rounding.
 
 /**
  * Challenge - 4
