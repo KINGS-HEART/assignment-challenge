@@ -184,35 +184,37 @@ console.log(findMultiples([3, 4, 5, 6, 9, 12], 3))
  * @param {Array} arrayOfNumbers the array of numbers to calculate factorials for
  * @returns {Array} the array of factorial results
  */
-export function calculateFactorials(arrayOfNumbers) {
+export function factorialArray(arrayOfNumbers) {
     if (!Array.isArray(arrayOfNumbers)) {
         throw new TypeError('Input must be an array of numbers')
     }
 
-    // helper function for factorial
-    const factorial = (n) => {
-        if (typeof n !== 'number' || Number.isNaN(n)) {
-            throw new TypeError('All elements must be valid numbers')
-        }
+    // Helper function to calculate factorial
+    function factorial(n) {
         if (n < 0)
-            throw new Error('Factorial is not defined for negative numbers')
-        if (n === 0 || n === 1)
+            return 0
+        if (n === 0)
             return 1
 
-        let product = 1
-        for (let i = 2; i <= n; i++) {
-            product *= i
+        let result = 1
+        for (let i = 1; i <= n; i++) {
+            result *= i
         }
-        return product
+        return result
     }
 
-    return arrayOfNumbers.map(num => factorial(num))
+    // Map each number to its factorial
+    return arrayOfNumbers.map((num) => {
+        if (typeof num !== 'number' || Number.isNaN(num)) {
+            throw new TypeError('All elements must be valid numbers')
+        }
+        return factorial(num)
+    })
 }
 
-// Example usage
-console.log(calculateFactorials([0, 1, 3, 5]))
-// Output: [1, 1, 6, 120]
-
+// Example usage:
+console.log(factorialArray([5, 3, 0, -2]))
+// Output: [120, 6, 1, 0]
 /**
  * Challenge - 7
  *
